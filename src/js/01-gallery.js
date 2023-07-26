@@ -29,6 +29,7 @@ const instance = new SimpleLightbox;
 galleryContainer.addEventListener('click', onGalleryContainerClick);
 
 function onGalleryContainerClick(event) {
+  event.preventDefault();
   const isGalleryImageEl = event.target.classList.contains('gallery__image');
   if (!isGalleryImageEl) {
       return;
