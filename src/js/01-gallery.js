@@ -5,7 +5,6 @@ import "simplelightbox/dist/simple-lightbox.min.css";
 
 const galleryContainer = document.querySelector('.gallery');
 const galleryMarkup = createGalleryItemsMarkup(galleryItems);
-
 galleryContainer.insertAdjacentHTML('beforeend', galleryMarkup);
 
 function createGalleryItemsMarkup(items) {
@@ -26,26 +25,22 @@ function createGalleryItemsMarkup(items) {
     .join('');
 }
 
-
+const instance = new SimpleLightbox;
 galleryContainer.addEventListener('click', onGalleryContainerClick);
 
 function onGalleryContainerClick(event) {
-
   const isGalleryImageEl = event.target.classList.contains('gallery__image');
   if (!isGalleryImageEl) {
-    return;
+      return;
   }
-
   const largeImageUrl = event.target.dataset.source;
   openModal(largeImageUrl);
 }
 
-
 function openModal(url) {
-  const instance = new SimpleLightbox(`
+  instance.setContent(`
     <img src="${url}" width="800" height="600">
   `);
-
   instance.show();
-}
+};
 
