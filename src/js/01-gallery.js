@@ -4,33 +4,29 @@ import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 
 const galleryContainer = document.querySelector('.gallery');
-// 
-function buildGallery(galleryItems) {
-    let galleryData = '';
+const galleryMarkup = createGalleryItemsMarkup(galleryItems);
 
-    galleryItems.forEach(galleryItem => {
-        const { preview, original, description } = galleryItem;
+galleryContainer.insertAdjacentHTML('beforeend', galleryMarkup);
 
-        galleryData += `
-            <a class="gallery__item" href="${original}">
-                <img
-                    class="gallery__image"
-                    src="${preview}"
-                    alt="${description}"
-                />
-            </a>
-        `;
-    });
-
-    // console.log(galleryData);
-    galleryList.insertAdjacentHTML('afterbegin', galleryData);
-
-    const modal = new SimpleLightbox('.gallery a', {
-        captionsData: 'alt',
-        captionDelay: 250,
-        captionClass: 'gallery__item-image',
-    });
-    console.dir(modal);
+function createGalleryItemsMarkup(items) {
+  return items
+    .map(({ preview, original, description }) => {
+      return `
+      <li class="gallery__item">
+        <a class="gallery__link" href="${original}">
+          <img
+            class="gallery__image"
+            src="${preview}"
+            data-source="${original}"
+            alt="${description}"
+          />
+        </a>
+      </li>`;
+    })
+    .join('');
 }
 
-buildGallery(galleryItems);
+    const lightbox = new SimpleLightbox('.gallery a', {
+        captionsData: 'alt',
+        captionDelay: 250,
+    });
