@@ -25,7 +25,6 @@ function createGalleryItemsMarkup(items) {
     .join('');
 }
 
-const instance = new SimpleLightbox;
 galleryContainer.addEventListener('click', onGalleryContainerClick);
 
 function onGalleryContainerClick(event) {
@@ -39,9 +38,10 @@ function onGalleryContainerClick(event) {
 }
 
 function openModal(url) {
-  instance.setContent(`
-    <img src="${url}" width="800" height="600">
-  `);
-  instance.show();
+ const modal = new SimpleLightbox('.gallery a', {
+        captionsData: 'alt',
+        captionDelay: 250,
+        captionClass: 'gallery__item-image',
+    });
 };
 
